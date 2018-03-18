@@ -2,15 +2,20 @@ package com.template;
 
 // Add these imports:
 import co.paralleluniverse.fibers.Suspendable;
+import com.google.common.collect.ImmutableList;
 import net.corda.core.contracts.Command;
 import net.corda.core.contracts.CommandData;
+import net.corda.core.contracts.StateAndContract;
 import net.corda.core.flows.*;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import net.corda.core.utilities.ProgressTracker;
 
-import static com.template.TemplateContract.TEMPLATE_CONTRACT_ID;
+import java.security.PublicKey;
+import java.util.List;
+
+import static com.template.IOUContract.TEMPLATE_CONTRACT_ID;
 
 // Replace TemplateFlow's definition with:
 @InitiatingFlow
@@ -50,12 +55,43 @@ public class IOUFlow extends FlowLogic<Void> {
     @Suspendable
     @Override
     public Void call() throws FlowException {
-        // We retrieve the notary identity from the network map.
+        final TransactionBuilder txBuilder=new TransactionBuilder();
+        final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
+
+        txBuilder.setNotary(notary);
+        IOUState outputState = new IOUState(car_chasis,cust_name,year,Idv_value, getOurIdentity(),IRDA);
+        StateAndContract outputstateandcontract=new StateAndContract(outputState,IOUContract.TEMPLATE_CONTRACT_ID);
+        List<PublicKey> requiredSigners= ImmutableList.of(getOurIdentity().getOwningKey(),IRDA.getOwningKey());
+        Command cmd=new Command<>(new IOUContract.Create(),requiredSigners);
+
+        txBuilder.withItems(outputstateandcontract,cmd);
+        txBuilder.verify(getServiceHub());
+        final SignedTransaction signedTx=getServiceHub().signInitialTransaction(txBuilder);
+        FlowSession irdasession=initiateFlow(IRDA);
+
+        SignedTransaction fullySignedTx=subFlow(new CollectSignaturesFlow(
+                signedTx, ImmutableList.of(irdasession),CollectSignaturesFlow.tracker()
+
+
+
+        ));
+
+        subFlow(new FinalityFlow(fullySignedTx));
+
+
+
+
+
+
+        return null;
+
+
+       /* // We retrieve the notary identity from the network map.
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
         // We create the transaction components.
         IOUState outputState = new IOUState(car_chasis,cust_name,year,Idv_value, getOurIdentity(),IRDA);
-        CommandData cmdType = new TemplateContract.Commands.Action();
+        CommandData cmdType = new IOUContract.Commands.Action();
         Command cmd = new Command<>(cmdType, getOurIdentity().getOwningKey());
 
         // We create a transaction builder and add the components.
@@ -70,6 +106,8 @@ public class IOUFlow extends FlowLogic<Void> {
         subFlow(new FinalityFlow(signedTx));
 
         return null;
+
+        */
     }
 
 
