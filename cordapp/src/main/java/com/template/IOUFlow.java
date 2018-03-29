@@ -20,7 +20,7 @@ import static com.template.IOUContract.TEMPLATE_CONTRACT_ID;
 // Replace TemplateFlow's definition with:
 @InitiatingFlow
 @StartableByRPC
-public class IOUFlow extends FlowLogic<Void> {
+public class IOUFlow extends FlowLogic<SignedTransaction> {
     private final String car_chasis;
     // private final String car_name;
     // private final String car_engine;
@@ -54,7 +54,7 @@ public class IOUFlow extends FlowLogic<Void> {
      */
     @Suspendable
     @Override
-    public Void call() throws FlowException {
+    public SignedTransaction call() throws FlowException {
         final TransactionBuilder txBuilder=new TransactionBuilder();
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
@@ -76,14 +76,14 @@ public class IOUFlow extends FlowLogic<Void> {
 
         ));
 
-        subFlow(new FinalityFlow(fullySignedTx));
+       return subFlow(new FinalityFlow(fullySignedTx));
 
 
 
 
 
 
-        return null;
+
 
 
        /* // We retrieve the notary identity from the network map.

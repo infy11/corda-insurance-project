@@ -39,7 +39,7 @@ public class IOUContract implements Contract {
             final Party company=out.getInsuarance_company();
             final Party irda=out.getIRDA();
             check.using("ird value should not be negative",out.getIdv_value()>0);
-     
+
             check.using("chasis number should not be null",out.getCar_chasis()!=null);
             check.using("customer name should not be null ",out.getCust_name()!=null);
             check.using("year should not be blank",out.getYear()!=null);

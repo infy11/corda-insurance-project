@@ -89,14 +89,19 @@ public class TemplateApi {
         }
 
         try {
-           rpcOps.startTrackedFlowDynamic(IOUFlow.class,chasis,custname,year,idv_value,irdaParty,otherParty).getReturnValue().get();
 
-            //final SignedTransaction signedTx = rpcOps
+
+          // rpcOps.startTrackedFlowDynamic(IOUFlow.class,chasis,custname,year,idv_value,irdaParty,otherParty).getReturnValue().get();
+
+           final SignedTransaction signedTx=rpcOps.startTrackedFlowDynamic(IOUFlow.class,chasis,custname,year,idv_value,irdaParty,otherParty)
+                   .getReturnValue().get();
+
+           //final SignedTransaction signedTx = rpcOps
             //        .startTrackedFlowDynamic(IOUFlow.class, iouValue, otherParty)
             //        .getReturnValue()
             //        .get();
 
-            final String msg = String.format("Transaction id  committed to ledger.");
+            final String msg = String.format("Transaction id  committed to ledger."+signedTx.getId());
             return Response.status(CREATED).entity(msg).build();
 
         } catch (Throwable ex) {
