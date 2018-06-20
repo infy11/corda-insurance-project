@@ -1,0 +1,55 @@
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import HDFC from './hdfc'
+import Bajaj from './bajaj'
+import IRDA from './irda'
+
+
+export default class Navigate extends Component {
+  render() {
+    return (
+      <div>
+      <Router>
+    <div>
+      
+
+      <Route exact path="/hdfc" component={HDFC} />
+      <Route path="/bajaj" component={Bajaj} />
+      <Route path="/irda" component={IRDA} />
+    </div>
+  </Router>
+        
+        <div className="row">
+         <div className="col-sm-4">
+          <div className="card">
+           <div className="card-body">
+           <img src="/images/hdfc-logo.png" alt="hdfc logo" width="300px" height="100px"/>
+           <a href="/hdfc" class="btn btn-primary">click here</a>
+             </div>
+           </div>
+         
+         </div>
+         <div className="col-sm-4">
+          <div className="card">
+           <div className="card-body">
+           <img src="/images/bajaj-logo.jpg" alt="bajaj logo" width="300px" height="100px"/>
+           <a href="/bajaj" class="btn btn-primary">click here</a>
+             </div>
+           </div>
+         
+         </div>
+         <div className="col-sm-4">
+          <div className="card">
+           <div className="card-body">
+           <img src="/images/irda-logo.jpg" alt="irda logo" width="300px" height="100px"/>
+           <a href="/irda" class="btn btn-primary">Click Here </a>
+             </div>
+           </div>
+         
+         </div>
+
+        </div>
+      </div>
+    )
+  }
+}
