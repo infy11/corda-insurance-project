@@ -65,7 +65,7 @@ public class TemplateApi {
                 .collect(toList()));
     }
 
-    @PUT
+    @POST
     @Path("create-iou")
     public Response createIOU(@QueryParam("chasis") String chasis,@QueryParam("cust_name") String custname,@QueryParam("year") String year,@QueryParam("idv_value") Float idv_value,@QueryParam("irda") CordaX500Name irda, @QueryParam("partyName") CordaX500Name  partyName) throws InterruptedException, ExecutionException {
         if (chasis ==null) {
