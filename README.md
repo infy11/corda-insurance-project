@@ -151,9 +151,9 @@ Tutorials and developer docs for CorDapps and Corda are
 [here](https://docs.corda.net/).
 
 
-##How to use React App
+## How to use React App
 
-** npm needs to be installed based on the enviroment
+## npm needs to be installed based on the enviroment
 To run react app you need to fire following commands
 
 	npm install
