@@ -1,12 +1,8 @@
-![Corda](https://www.corda.net/wp-content/uploads/2016/11/fg005_corda_b.png)
 
-# CorDapp Template
+# CorDapp Insurance App
 
-Welcome to the CorDapp template. The CorDapp template is a stubbed-out CorDapp 
-which you can use to bootstrap your own CorDapp projects.
+Welcome to the CorDapp 
 
-**This is the JAVA version of the CorDapp template. For the KOTLIN version click 
-[here](https://github.com/corda/cordapp-template-kotlin/).**
 
 ## Pre-Requisites
 
@@ -16,8 +12,6 @@ You will need the following installed on your machine before you can start:
   installed and available on your path (Minimum version: 1.8_131).
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Minimum version 2017.1)
 * git
-* Optional: [h2 web console](http://www.h2database.com/html/download.html)
-  (download the "platform-independent zip")
 
 For more detailed information, see the
 [getting set up](https://docs.corda.net/getting-set-up.html) page on the
@@ -155,3 +149,18 @@ among themselves in the same way as when they were running on the same machine.
 
 Tutorials and developer docs for CorDapps and Corda are
 [here](https://docs.corda.net/).
+
+
+##How to use React App
+
+** npm needs to be installed based on the enviroment
+To run react app you need to fire following commands
+
+	npm install
+then to run the app
+	
+	npm start
+
+to build the app for production
+	
+	npm build 
